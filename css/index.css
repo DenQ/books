@@ -1,0 +1,10 @@
+section{
+    width: 50%;
+    padding: 10px;
+    float: left;
+}
+aside{
+    width: 50%;
+    padding: 10px;
+    float: right;
+}
