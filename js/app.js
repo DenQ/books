@@ -131,18 +131,10 @@ QManager = (function() {
   };
 
   QManager.prototype.Create = function(json) {
-    var id, relation;
-    id = uniqid('book_');
-    this.storage.set(id, json);
-    relation = this.storage.get('relation');
-    if ((relation == null) || relation.length === 0) {
-      relation = [];
+    var __id;
+    if (__id = this.relation.newRow()) {
+      return this.storage.set(__id, json);
     }
-    if (relation.length !== 0) {
-      relation = relation;
-    }
-    relation.push(id);
-    return this.storage.set('relation', relation);
   };
 
   QManager.prototype.Read = function(__id) {};
@@ -179,6 +171,21 @@ QRelation = (function() {
       this.storage.set(this.KEY, []);
     }
   }
+
+  QRelation.prototype.newRow = function() {
+    var relation, __id;
+    __id = uniqid('book_');
+    relation = this.storage.get(this.KEY);
+    if ((relation == null) || relation.length === 0) {
+      relation = [];
+    }
+    if (relation.length !== 0) {
+      relation = relation;
+    }
+    relation.push(__id);
+    this.storage.set(this.KEY, relation);
+    return __id;
+  };
 
   return QRelation;
 

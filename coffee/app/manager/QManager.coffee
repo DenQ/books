@@ -23,14 +23,8 @@ class QManager
 
 
   Create:(json)->
-    id = uniqid('book_')
-    @storage.set id, json
-
-    relation = @storage.get 'relation'
-    relation = [] if not relation? or relation.length is 0
-    relation = relation if relation.length isnt 0
-    relation.push id
-    @storage.set 'relation', relation
+    if __id = @relation.newRow()
+      @storage.set __id, json
 
   Read:(__id)->
 
