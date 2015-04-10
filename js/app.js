@@ -149,6 +149,9 @@ QManager = (function() {
 
   QManager.prototype.Update = function(__id, json) {
     var row;
+    if (this.relation.findById(__id) === false) {
+      throw false;
+    }
     if (row = this.Read(__id)) {
       this.storage.set(__id, json);
       return true;
@@ -156,16 +159,26 @@ QManager = (function() {
     return false;
   };
 
-  QManager.prototype.Delete = function(__id) {};
+  QManager.prototype.Delete = function(__id) {
+    var row;
+    if (this.relation.findById(__id) === true && (row = this.Read(__id))) {
+      if (this.relation.remove(__id) === true) {
+        this.storage["delete"](__id);
+      }
+      return true;
+    }
+    return false;
+  };
 
   return QManager;
 
 })();
 
 $(function() {
-  var book, qls;
+  var book, qls, __id;
   qls = new QLocalStorage();
   QManager.prototype.SetStorage(qls);
+  __id = 'book_5527cdf680ffe';
   book = {
     'author': 'a1',
     'year': 'y1',
@@ -173,9 +186,10 @@ $(function() {
     'countPages': 'cp1'
   };
   QManager.prototype.GetInstance().Create(book);
-  console.log(QManager.prototype.GetInstance().Read('book_5527b1afb40b0'));
+  console.log(QManager.prototype.GetInstance().Read(__id));
   book.title = 't1_new';
-  console.log(QManager.prototype.GetInstance().Update('book_5527b1afb40b0', book));
+  console.log(QManager.prototype.GetInstance().Update(__id, book));
+  console.log(QManager.prototype.GetInstance().Delete(__id));
 });
 
 QRelation = (function() {
@@ -190,9 +204,8 @@ QRelation = (function() {
     }
   }
 
-  QRelation.prototype.newRow = function() {
-    var relation, __id;
-    __id = uniqid('book_');
+  QRelation.prototype.getRelation = function() {
+    var relation;
     relation = this.storage.get(this.KEY);
     if ((relation == null) || relation.length === 0) {
       relation = [];
@@ -200,6 +213,13 @@ QRelation = (function() {
     if (relation.length !== 0) {
       relation = relation;
     }
+    return relation;
+  };
+
+  QRelation.prototype.newRow = function() {
+    var relation, __id;
+    __id = uniqid('book_');
+    relation = this.getRelation();
     relation.push(__id);
     this.storage.set(this.KEY, relation);
     return __id;
@@ -209,6 +229,23 @@ QRelation = (function() {
     var relation;
     if (relation = this.storage.get(this.KEY)) {
       return __indexOf.call(relation, __id) >= 0;
+    }
+    return false;
+  };
+
+  QRelation.prototype.remove = function(__id) {
+    var item, relation, __relation, _i, _len;
+    if (this.findById(__id) === true) {
+      relation = this.getRelation();
+      __relation = [];
+      for (_i = 0, _len = relation.length; _i < _len; _i++) {
+        item = relation[_i];
+        if (item !== __id) {
+          __relation.push(item);
+        }
+      }
+      this.storage.set(this.KEY, __relation);
+      return true;
     }
     return false;
   };

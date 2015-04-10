@@ -36,6 +36,8 @@ class QManager
 
 
   Update:(__id, json) ->
+    if @relation.findById(__id) is false
+      throw false
     if row = @Read __id
       @storage.set __id, json
       return true
@@ -43,3 +45,8 @@ class QManager
 
 
   Delete:(__id)->
+    if @relation.findById(__id) is true and row = @Read(__id)
+      if @relation.remove(__id) is true
+        @storage.delete __id
+      return true
+    return false
