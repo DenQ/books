@@ -117,6 +117,10 @@ QManager = (function() {
     this;
   }
 
+  QManager.prototype.GetRelation = function() {
+    return this.relation;
+  };
+
   QManager.prototype.SetStorage = function(IStorage) {
     this.storage = IStorage;
     return null;
@@ -175,21 +179,20 @@ QManager = (function() {
 })();
 
 $(function() {
-  var book, qls, __id;
+  var $tr, Relations, qls, row, __id, _i, _len, _ref;
   qls = new QLocalStorage();
   QManager.prototype.SetStorage(qls);
-  __id = 'book_5527cdf680ffe';
-  book = {
-    'author': 'a1',
-    'year': 'y1',
-    'title': 't1',
-    'countPages': 'cp1'
-  };
-  QManager.prototype.GetInstance().Create(book);
-  console.log(QManager.prototype.GetInstance().Read(__id));
-  book.title = 't1_new';
-  console.log(QManager.prototype.GetInstance().Update(__id, book));
-  console.log(QManager.prototype.GetInstance().Delete(__id));
+  Relations = QManager.prototype.GetInstance().GetRelation().getRelation();
+  _ref = Relations.reverse();
+  for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+    __id = _ref[_i];
+    row = QManager.prototype.GetInstance().Read(__id);
+    $tr = $('div#templates .table-tr tr').clone();
+    $tr.find('.author').text(row.author);
+    $tr.find('.title').text(row.title);
+    $tr.attr('bid', __id);
+    $('.list-book tbody').append($tr);
+  }
 });
 
 QRelation = (function() {
@@ -247,7 +250,6 @@ QRelation = (function() {
       this.storage.set(this.KEY, __relation);
       return true;
     }
-    return false;
   };
 
   return QRelation;

@@ -10,6 +10,9 @@ class QManager
     @relation = new QRelation @storage
     @
 
+
+  GetRelation:-> @relation
+
   SetStorage:(IStorage)->
     @storage = IStorage
     null

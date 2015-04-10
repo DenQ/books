@@ -34,4 +34,3 @@ class QRelation
           __relation.push item
       @storage.set @KEY, __relation
       return true
-    return false
