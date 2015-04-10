@@ -11,12 +11,10 @@ $ ->
     'title': 't1',
     'countPages': 'cp1',
   QManager::GetInstance().Create book
-#  console.log QManager::GetInstance()
-#  console.log QManager::GetInstance()
-#  qls.set 'k1', 'v1'
-#  console.log qls.get 'k1'
-#  qls.delete 'k1'
-#  console.log qls.getStorage()
+
+  console.log QManager::GetInstance().Read 'book_5527b5660be4f'
+
+
 #  $('.btn-edit').click (e) ->
 #    console.log e
 #    return

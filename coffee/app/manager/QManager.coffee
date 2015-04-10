@@ -25,8 +25,12 @@ class QManager
   Create:(json)->
     if __id = @relation.newRow()
       @storage.set __id, json
+      return __id
+    return false
 
   Read:(__id)->
+    return @relation.findById __id
+
 
   Update:(__id, json) ->
 

@@ -16,3 +16,8 @@ class QRelation
     relation.push __id
     @storage.set @KEY, relation
     return __id
+
+  findById:(__id)->
+    if relation = @storage.get @KEY
+      return __id in relation
+    return false
