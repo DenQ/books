@@ -28,10 +28,15 @@ class QManager
       return __id
     return false
 
+
   Read:(__id)->
-    return @relation.findById __id
+    if @relation.findById(__id) is true
+      return @storage.get __id
+    return false
 
 
   Update:(__id, json) ->
+
+
 
   Delete:(__id)->

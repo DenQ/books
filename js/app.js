@@ -141,7 +141,10 @@ QManager = (function() {
   };
 
   QManager.prototype.Read = function(__id) {
-    return this.relation.findById(__id);
+    if (this.relation.findById(__id) === true) {
+      return this.storage.get(__id);
+    }
+    return false;
   };
 
   QManager.prototype.Update = function(__id, json) {};
@@ -163,7 +166,7 @@ $(function() {
     'countPages': 'cp1'
   };
   QManager.prototype.GetInstance().Create(book);
-  console.log(QManager.prototype.GetInstance().Read('book_5527b5660be4f'));
+  console.log(QManager.prototype.GetInstance().Read('book_5527b1afb40b0'));
 });
 
 QRelation = (function() {
