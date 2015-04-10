@@ -1,1 +1,1 @@
-coffee -w -c -b -j js/app.js -- coffee/app/storage coffee/app/index.coffee
+coffee -w -c -b -j js/app.js -- coffee/app/helpers/ coffee/app/storage coffee/app/manager/ coffee/app/index.coffee

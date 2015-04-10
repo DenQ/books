@@ -11,10 +11,10 @@ class QLocalStorage extends IStorage
 
   getStorage:-> @storage
 
-  get:(key)-> @storage.getItem key
+  get:(key)-> JSON.parse @storage.getItem key
 
   set:(key, val)->
-    @storage.setItem key, val
+    @storage.setItem key, JSON.stringify val
     null
 
   delete:(key)->
