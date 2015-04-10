@@ -14,6 +14,9 @@ $ ->
 
   console.log QManager::GetInstance().Read 'book_5527b1afb40b0'
 
+  book.title = 't1_new'
+  console.log QManager::GetInstance().Update 'book_5527b1afb40b0', book
+
 
 #  $('.btn-edit').click (e) ->
 #    console.log e

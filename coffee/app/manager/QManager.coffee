@@ -36,7 +36,10 @@ class QManager
 
 
   Update:(__id, json) ->
-
+    if row = @Read __id
+      @storage.set __id, json
+      return true
+    return false
 
 
   Delete:(__id)->

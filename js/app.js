@@ -147,7 +147,14 @@ QManager = (function() {
     return false;
   };
 
-  QManager.prototype.Update = function(__id, json) {};
+  QManager.prototype.Update = function(__id, json) {
+    var row;
+    if (row = this.Read(__id)) {
+      this.storage.set(__id, json);
+      return true;
+    }
+    return false;
+  };
 
   QManager.prototype.Delete = function(__id) {};
 
@@ -167,6 +174,8 @@ $(function() {
   };
   QManager.prototype.GetInstance().Create(book);
   console.log(QManager.prototype.GetInstance().Read('book_5527b1afb40b0'));
+  book.title = 't1_new';
+  console.log(QManager.prototype.GetInstance().Update('book_5527b1afb40b0', book));
 });
 
 QRelation = (function() {
