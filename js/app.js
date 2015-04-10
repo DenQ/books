@@ -278,4 +278,22 @@ $(function() {
   QManager.prototype.SetStorage(qls);
   qList = new QList();
   qList.fill();
+  $('.btn-edit').click(function(e) {
+    var T, row, __id;
+    T = $(e.currentTarget);
+    __id = T.parents('tr:first').attr('bid');
+    row = QManager.prototype.GetInstance().Read(__id);
+    $('#book-editor #author').val(row.author);
+    $('#book-editor #year').val(row.year);
+    $('#book-editor #title').val(row.title);
+    $('#book-editor #numberPages').val(row.countPages);
+  });
+  $('.btn-remove').click(function(e) {
+    var $tr, T, __id;
+    T = $(e.currentTarget);
+    $tr = T.parents('tr:first');
+    __id = $tr.attr('bid');
+    QManager.prototype.GetInstance().Delete(__id);
+    $tr.remove();
+  });
 });

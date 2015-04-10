@@ -20,7 +20,7 @@
 <header></header>
 <nav></nav>
 <section>
-    <form>
+    <form id="book-editor">
         <div class="form-group">
             <label for="author">Автор</label>
             <input type="text" class="form-control" id="author" placeholder="Автор">
@@ -37,7 +37,7 @@
             <label for="numberPages">Количество страниц</label>
             <input type="text" class="form-control" id="numberPages" placeholder="Количество страниц">
         </div>
-        <button type="button" class="btn btn-default btn-edit">Добавить</button>
+        <button type="button" class="btn btn-default btn-update">Добавить</button>
         <button type="reset" class="btn btn-default btn-reset">Очистить</button>
     </form>
 </section>
@@ -59,8 +59,8 @@
             <td class="author"></td>
             <td class="title"></td>
             <td class="system">
-                <button type="button" class="btn btn-default btn-xs">Редактировать</button>
-                <button type="button" class="btn btn-default btn-xs">Удалить</button>
+                <button type="button" class="btn btn-default btn-xs btn-edit">Редактировать</button>
+                <button type="button" class="btn btn-default btn-xs btn-remove">Удалить</button>
             </td>
         </tr>
     </table>

@@ -26,7 +26,24 @@ $ ->
 #  console.log QManager::GetInstance().Delete __id
 
 
-#  $('.btn-edit').click (e) ->
-#    console.log e
-#    return
+  $('.btn-edit').click (e) ->
+    T = $(e.currentTarget)
+    __id = T.parents('tr:first').attr 'bid'
+    row = QManager::GetInstance().Read __id
+    $('#book-editor #author').val row.author
+    $('#book-editor #year').val row.year
+    $('#book-editor #title').val row.title
+    $('#book-editor #numberPages').val row.countPages
+    return
+
+
+  $('.btn-remove').click (e) ->
+    T = $(e.currentTarget)
+    $tr = T.parents('tr:first')
+    __id = $tr.attr 'bid'
+    QManager::GetInstance().Delete __id
+    $tr.remove()
+    return
+
+
   return
