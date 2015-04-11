@@ -422,7 +422,6 @@ QList = (function() {
   QList.prototype.Reload = function() {
     this.Empty();
     this.Fill();
-    FormHelper.prototype.Reset();
     this.CheckEmpty();
     return null;
   };
@@ -482,6 +481,7 @@ $(function() {
   $('.btn-create').click(function(e) {
     if (QManager.prototype.GetInstance().Create(FormHelper.prototype.GetJson()) !== false) {
       QList.prototype.Reload();
+      FormHelper.prototype.Reset();
     }
     return null;
   });

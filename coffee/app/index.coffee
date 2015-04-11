@@ -59,6 +59,7 @@ $ ->
   $('.btn-create').click (e) ->
     if QManager::GetInstance().Create(FormHelper::GetJson()) isnt false
       QList::Reload()
+      FormHelper::Reset()
     null
 
   #  system btn

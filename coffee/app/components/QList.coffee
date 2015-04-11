@@ -27,7 +27,7 @@ class QList
   Reload:->
     @Empty()
     @Fill()
-    FormHelper::Reset()
+#    FormHelper::Reset()
     @CheckEmpty()
     return null
 
