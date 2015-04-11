@@ -10,6 +10,7 @@ class QValidation
     @requireNumericFields()
     if @scenario is 'create'
       @uniqueFields()
+    @year()
     return @
 
 
@@ -37,3 +38,9 @@ class QValidation
     unless QManager::GetInstance().Search('title', @json.title) is null
       throw 'Книга с таким именем уже существует'
     return null
+
+
+  year:->
+    year = parseInt @json.year
+    unless year >= 0 and year <= (new Date()).getFullYear()
+      throw 'Поле "год", должно быть реальным'

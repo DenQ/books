@@ -4,25 +4,6 @@ $ ->
   QManager::SetStorage qls
 
   QList::Fill()
-#  __id = 'book_5527d2a35505a'
-
-#  bid = uniqid()
-#  book =
-#    'author': "author #{bid}"
-#    'year': "year #{bid}"
-#    'title': "title #{bid}"
-#    'countPages': "countPAges #{bid}"
-#  QManager::GetInstance().Create book
-
-#  console.log QManager::GetInstance().Read __id
-#
-#  console.log QManager::GetInstance().GetRelation().getRelation()
-
-#  book.title = 't1_new'
-#  console.log QManager::GetInstance().Update __id, book
-#
-#  console.log QManager::GetInstance().Delete __id
-
 
   $('.list-book').on('click', '.btn-edit', (e) ->
     T = $(e.currentTarget)

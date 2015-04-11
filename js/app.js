@@ -344,6 +344,7 @@ QValidation = (function() {
     if (this.scenario === 'create') {
       this.uniqueFields();
     }
+    this.year();
     return this;
   }
 
@@ -378,6 +379,14 @@ QValidation = (function() {
       throw 'Книга с таким именем уже существует';
     }
     return null;
+  };
+
+  QValidation.prototype.year = function() {
+    var year;
+    year = parseInt(this.json.year);
+    if (!(year >= 0 && year <= (new Date()).getFullYear())) {
+      throw 'Поле "год", должно быть реальным';
+    }
   };
 
   return QValidation;

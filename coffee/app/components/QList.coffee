@@ -1,5 +1,6 @@
 class QList
 
+
   GetTemplate:->
     return $('div#templates .table-tr tr').clone()
 
