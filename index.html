@@ -34,10 +34,11 @@
             <input type="text" class="form-control" id="title" placeholder="Название книги">
         </div>
         <div class="form-group">
-            <label for="numberPages">Количество страниц</label>
-            <input type="text" class="form-control" id="numberPages" placeholder="Количество страниц">
+            <label for="countPages">Количество страниц</label>
+            <input type="text" class="form-control" id="countPages" placeholder="Количество страниц">
         </div>
-        <button type="button" class="btn btn-default btn-update">Добавить</button>
+        <button type="button" class="btn btn-default btn-create">Добавить</button>
+        <button type="button" class="btn btn-default btn-update" style="display:none; ">Редактировать</button>
         <button type="reset" class="btn btn-default btn-reset">Очистить</button>
     </form>
 </section>
@@ -55,7 +56,7 @@
 
 <div id="templates" style="display: none;">
     <table class="table-tr">
-        <tr>
+        <tr class="item">
             <td class="author"></td>
             <td class="title"></td>
             <td class="system">

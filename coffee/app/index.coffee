@@ -8,14 +8,15 @@ $ ->
 
 
 #  __id = 'book_5527d2a35505a'
-#
+
+#  bid = uniqid()
 #  book =
-#    'author': 'a1',
-#    'year': 'y1',
-#    'title': 't1',
-#    'countPages': 'cp1',
+#    'author': "author #{bid}"
+#    'year': "year #{bid}"
+#    'title': "title #{bid}"
+#    'countPages': "countPAges #{bid}"
 #  QManager::GetInstance().Create book
-#
+
 #  console.log QManager::GetInstance().Read __id
 #
 #  console.log QManager::GetInstance().GetRelation().getRelation()
@@ -28,12 +29,16 @@ $ ->
 
   $('.btn-edit').click (e) ->
     T = $(e.currentTarget)
-    __id = T.parents('tr:first').attr 'bid'
+    $tr = T.parents('tr:first')
+    __id = $tr.attr 'bid'
     row = QManager::GetInstance().Read __id
-    $('#book-editor #author').val row.author
-    $('#book-editor #year').val row.year
-    $('#book-editor #title').val row.title
-    $('#book-editor #numberPages').val row.countPages
+    FormHelper::SetValue 'author', row
+    FormHelper::SetValue 'year', row
+    FormHelper::SetValue 'title', row
+    FormHelper::SetValue 'countPages', row
+    $('.btn-update').show()
+    $('.btn-create').hide()
+    $('.btn-update').attr 'bid', __id
     return
 
 
@@ -44,6 +49,36 @@ $ ->
     QManager::GetInstance().Delete __id
     $tr.remove()
     return
+
+  $('.btn-reset').click (e) ->
+    $('.btn-update').hide()
+    $('.btn-create').show()
+    $('.btn-update').removeAttr 'bid'
+    null
+
+
+  $('.btn-create').click (e) ->
+    T = $(e.currentTarget)
+    __id = T.attr 'bid'
+    QManager::GetInstance().Create FormHelper::GetJson()
+    qList = new QList()
+    #todo : Поставить native bind для localStorage
+    qList.empty()
+    qList.fill()
+    FormHelper::Reset()
+    null
+
+
+  $('.btn-update').click (e) ->
+    T = $(e.currentTarget)
+    __id = T.attr 'bid'
+    QManager::GetInstance().Update __id, FormHelper::GetJson()
+    qList = new QList()
+    #todo : Поставить native bind для localStorage
+    qList.empty()
+    qList.fill()
+    FormHelper::Reset()
+    null
 
 
   return

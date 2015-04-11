@@ -15,3 +15,7 @@ class QList
     $tr.find('.title').text row.title
     $tr.attr 'bid', __id
     $('.list-book tbody').append $tr
+
+
+  empty:->
+    $('.list-book tbody tr.item').remove()
