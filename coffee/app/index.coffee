@@ -44,8 +44,10 @@ $ ->
     T = $(e.currentTarget)
     $tr = T.parents('tr:first')
     __id = $tr.attr 'bid'
-    QManager::GetInstance().Delete __id
-    $tr.remove()
+    if QManager::GetInstance().Delete(__id) is true
+      $tr.remove()
+      if bid = $('.btn-update').attr('bid')
+        FormHelper::Reset() if bid is __id
     return null
   )
 
@@ -60,7 +62,6 @@ $ ->
   $('.btn-create').click (e) ->
     if QManager::GetInstance().Create(FormHelper::GetJson()) isnt false
       QList::Reload()
-      console.log 'reset'
     null
 
   #  system btn

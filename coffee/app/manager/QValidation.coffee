@@ -24,7 +24,7 @@ class QValidation
 
   requireNumericFields:->
     unless isInt(@json.year) is true
-      throw 'Поле "год", должно состоять из только из цифр'
+      throw 'Поле "год", должно состоять только из цифр'
     unless isInt(@json.countPages) is true
-      throw 'Поле "Количество страниц", должно состоять из только из цифр'
+      throw 'Поле "Количество страниц", должно состоять только из цифр'
     return null

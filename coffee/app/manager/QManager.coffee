@@ -53,7 +53,8 @@ class QManager
     if @relation.findById(__id) is true and row = @Read(__id)
       if @relation.remove(__id) is true
         @storage.delete __id
-      return true
+        return true
+      return false
     return false
 
 

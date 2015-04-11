@@ -204,8 +204,9 @@ QManager = (function() {
     if (this.relation.findById(__id) === true && (row = this.Read(__id))) {
       if (this.relation.remove(__id) === true) {
         this.storage["delete"](__id);
+        return true;
       }
-      return true;
+      return false;
     }
     return false;
   };
@@ -319,10 +320,10 @@ QValidation = (function() {
 
   QValidation.prototype.requireNumericFields = function() {
     if (isInt(this.json.year) !== true) {
-      throw 'Поле "год", должно состоять из только из цифр';
+      throw 'Поле "год", должно состоять только из цифр';
     }
     if (isInt(this.json.countPages) !== true) {
-      throw 'Поле "Количество страниц", должно состоять из только из цифр';
+      throw 'Поле "Количество страниц", должно состоять только из цифр';
     }
     return null;
   };
@@ -397,12 +398,18 @@ $(function() {
     return null;
   });
   $('.list-book').on('click', '.btn-remove', function(e) {
-    var $tr, T, __id;
+    var $tr, T, bid, __id;
     T = $(e.currentTarget);
     $tr = T.parents('tr:first');
     __id = $tr.attr('bid');
-    QManager.prototype.GetInstance().Delete(__id);
-    $tr.remove();
+    if (QManager.prototype.GetInstance().Delete(__id) === true) {
+      $tr.remove();
+      if (bid = $('.btn-update').attr('bid')) {
+        if (bid === __id) {
+          FormHelper.prototype.Reset();
+        }
+      }
+    }
     return null;
   });
   $('.btn-reset').click(function(e) {
@@ -414,7 +421,6 @@ $(function() {
   $('.btn-create').click(function(e) {
     if (QManager.prototype.GetInstance().Create(FormHelper.prototype.GetJson()) !== false) {
       QList.prototype.Reload();
-      console.log('reset');
     }
     return null;
   });
