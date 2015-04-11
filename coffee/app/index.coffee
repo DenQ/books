@@ -28,14 +28,11 @@ $ ->
     T = $(e.currentTarget)
     $tr = T.parents('tr:first')
     __id = $tr.attr 'bid'
-    row = QManager::GetInstance().Read __id
-    FormHelper::SetValue 'author', row
-    FormHelper::SetValue 'year', row
-    FormHelper::SetValue 'title', row
-    FormHelper::SetValue 'countPages', row
-    $('.btn-update').show()
-    $('.btn-create').hide()
-    $('.btn-update').attr 'bid', __id
+    if json = QManager::GetInstance().Read __id
+      FormHelper::Set json
+      $('.btn-update').show()
+      $('.btn-create').hide()
+      $('.btn-update').attr 'bid', __id
     return null
   )
 

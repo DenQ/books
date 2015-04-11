@@ -1,11 +1,15 @@
 class FormHelper
 
-  SetValue:(field, row)->
-    $('#book-editor #' + field).val row[field]
+  SetValue:(key, val)->
+    $field = $('#book-editor #' + key)
+    if $field.length > 0
+      $field.val val
+    return null
 
 
   GetValue:(field)->
-    $('#book-editor #' + field).val()
+    return $('#book-editor #' + field).val()
+
 
   GetJson:->
     'author': @GetValue 'author'
@@ -13,6 +17,13 @@ class FormHelper
     'title': @GetValue 'title'
     'countPages': @GetValue 'countPages'
 
+
   Reset:->
     $('.btn-reset').trigger 'click'
-    null
+    return null
+
+
+  Set:(json)->
+    for key, val of json
+      @SetValue key, val
+    return null

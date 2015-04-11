@@ -37,8 +37,13 @@ var FormHelper, IStorage, QList, QLocalStorage, QManager, QRelation, QValidation
 FormHelper = (function() {
   function FormHelper() {}
 
-  FormHelper.prototype.SetValue = function(field, row) {
-    return $('#book-editor #' + field).val(row[field]);
+  FormHelper.prototype.SetValue = function(key, val) {
+    var $field;
+    $field = $('#book-editor #' + key);
+    if ($field.length > 0) {
+      $field.val(val);
+    }
+    return null;
   };
 
   FormHelper.prototype.GetValue = function(field) {
@@ -56,6 +61,15 @@ FormHelper = (function() {
 
   FormHelper.prototype.Reset = function() {
     $('.btn-reset').trigger('click');
+    return null;
+  };
+
+  FormHelper.prototype.Set = function(json) {
+    var key, val;
+    for (key in json) {
+      val = json[key];
+      this.SetValue(key, val);
+    }
     return null;
   };
 
@@ -402,18 +416,16 @@ $(function() {
   QManager.prototype.SetStorage(qls);
   QList.prototype.Fill();
   $('.list-book').on('click', '.btn-edit', function(e) {
-    var $tr, T, row, __id;
+    var $tr, T, json, __id;
     T = $(e.currentTarget);
     $tr = T.parents('tr:first');
     __id = $tr.attr('bid');
-    row = QManager.prototype.GetInstance().Read(__id);
-    FormHelper.prototype.SetValue('author', row);
-    FormHelper.prototype.SetValue('year', row);
-    FormHelper.prototype.SetValue('title', row);
-    FormHelper.prototype.SetValue('countPages', row);
-    $('.btn-update').show();
-    $('.btn-create').hide();
-    $('.btn-update').attr('bid', __id);
+    if (json = QManager.prototype.GetInstance().Read(__id)) {
+      FormHelper.prototype.Set(json);
+      $('.btn-update').show();
+      $('.btn-create').hide();
+      $('.btn-update').attr('bid', __id);
+    }
     return null;
   });
   $('.list-book').on('click', '.btn-remove', function(e) {
