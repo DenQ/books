@@ -1,21 +1,30 @@
 class QList
 
-  getTemplate:->
-    $('div#templates .table-tr tr').clone()
+  GetTemplate:->
+    return $('div#templates .table-tr tr').clone()
 
-  fill:->
+  Fill:->
     Relations = QManager::GetInstance().GetRelation().getRelation()
-    @pushItem(__id) for __id in Relations.reverse()
+    @PushItem(__id) for __id in Relations.reverse()
+    return null
 
 
-  pushItem:(__id)->
+  PushItem:(__id)->
     row = QManager::GetInstance().Read __id
-    $tr = @getTemplate()
+    $tr = @GetTemplate()
     $tr.find('.author').text row.author
     $tr.find('.title').text row.title
     $tr.attr 'bid', __id
     $('.list-book tbody').append $tr
+    return null
 
 
-  empty:->
+  Empty:->
     $('.list-book tbody tr.item').remove()
+    return null
+
+  Reload:->
+    @Empty()
+    @Fill()
+    FormHelper::Reset()
+    return null

@@ -3,9 +3,7 @@ $ ->
   qls = new QLocalStorage()
   QManager::SetStorage qls
 
-  qList = new QList()
-  qList.fill()
-
+  QList::Fill()
 
 #  __id = 'book_5527d2a35505a'
 
@@ -62,11 +60,7 @@ $ ->
     T = $(e.currentTarget)
     __id = T.attr 'bid'
     QManager::GetInstance().Create FormHelper::GetJson()
-    qList = new QList()
-    #todo : Поставить native bind для localStorage
-    qList.empty()
-    qList.fill()
-    FormHelper::Reset()
+    QList::Reload()
     null
 
   #  system btn
@@ -74,11 +68,7 @@ $ ->
     T = $(e.currentTarget)
     __id = T.attr 'bid'
     QManager::GetInstance().Update __id, FormHelper::GetJson()
-    qList = new QList()
-    #todo : Поставить native bind для localStorage
-    qList.empty()
-    qList.fill()
-    FormHelper::Reset()
+    QList::Reload()
     null
 
 

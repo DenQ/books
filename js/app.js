@@ -242,34 +242,42 @@ QRelation = (function() {
 QList = (function() {
   function QList() {}
 
-  QList.prototype.getTemplate = function() {
+  QList.prototype.GetTemplate = function() {
     return $('div#templates .table-tr tr').clone();
   };
 
-  QList.prototype.fill = function() {
-    var Relations, __id, _i, _len, _ref, _results;
+  QList.prototype.Fill = function() {
+    var Relations, __id, _i, _len, _ref;
     Relations = QManager.prototype.GetInstance().GetRelation().getRelation();
     _ref = Relations.reverse();
-    _results = [];
     for (_i = 0, _len = _ref.length; _i < _len; _i++) {
       __id = _ref[_i];
-      _results.push(this.pushItem(__id));
+      this.PushItem(__id);
     }
-    return _results;
+    return null;
   };
 
-  QList.prototype.pushItem = function(__id) {
+  QList.prototype.PushItem = function(__id) {
     var $tr, row;
     row = QManager.prototype.GetInstance().Read(__id);
-    $tr = this.getTemplate();
+    $tr = this.GetTemplate();
     $tr.find('.author').text(row.author);
     $tr.find('.title').text(row.title);
     $tr.attr('bid', __id);
-    return $('.list-book tbody').append($tr);
+    $('.list-book tbody').append($tr);
+    return null;
   };
 
-  QList.prototype.empty = function() {
-    return $('.list-book tbody tr.item').remove();
+  QList.prototype.Empty = function() {
+    $('.list-book tbody tr.item').remove();
+    return null;
+  };
+
+  QList.prototype.Reload = function() {
+    this.Empty();
+    this.Fill();
+    FormHelper.prototype.Reset();
+    return null;
   };
 
   return QList;
@@ -277,11 +285,10 @@ QList = (function() {
 })();
 
 $(function() {
-  var qList, qls;
+  var qls;
   qls = new QLocalStorage();
   QManager.prototype.SetStorage(qls);
-  qList = new QList();
-  qList.fill();
+  QList.prototype.Fill();
   $('.list-book').on('click', '.btn-edit', function(e) {
     var $tr, T, row, __id;
     T = $(e.currentTarget);
@@ -317,10 +324,7 @@ $(function() {
     T = $(e.currentTarget);
     __id = T.attr('bid');
     QManager.prototype.GetInstance().Create(FormHelper.prototype.GetJson());
-    qList = new QList();
-    qList.empty();
-    qList.fill();
-    FormHelper.prototype.Reset();
+    QList.prototype.Reload();
     return null;
   });
   $('.btn-update').click(function(e) {
@@ -328,10 +332,7 @@ $(function() {
     T = $(e.currentTarget);
     __id = T.attr('bid');
     QManager.prototype.GetInstance().Update(__id, FormHelper.prototype.GetJson());
-    qList = new QList();
-    qList.empty();
-    qList.fill();
-    FormHelper.prototype.Reset();
+    QList.prototype.Reload();
     return null;
   });
 });
