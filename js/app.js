@@ -5,7 +5,7 @@ var FormHelper, IStorage, QList, QLocalStorage, QManager, QRelation, QValidation
   __indexOf = [].indexOf || function(item) { for (var i = 0, l = this.length; i < l; i++) { if (i in this && this[i] === item) return i; } return -1; };
 
 (function() {
-  return this.uniqid = function(pr, en) {
+  this.uniqid = function(pr, en) {
     var result, us;
     pr = pr || "";
     en = en || false;
@@ -28,6 +28,9 @@ var FormHelper, IStorage, QList, QLocalStorage, QManager, QRelation, QValidation
       result += (Math.random() * 10).toFixed(8).toString();
     }
     return result;
+  };
+  return this.isInt = function(str) {
+    return !/\D/.test(str);
   };
 })();
 
@@ -294,6 +297,7 @@ QValidation = (function() {
       throw 'Необходимо заполнить форму';
     }
     this.existsFields();
+    this.requireNumericFields();
     return this;
   }
 
@@ -308,8 +312,19 @@ QValidation = (function() {
       throw 'Необходимо указать год';
     }
     if (!((this.json.countPages != null) && this.json.countPages.length > 0)) {
-      throw 'Необходимо количество страниц';
+      throw 'Необходимо указать количество страниц';
     }
+    return null;
+  };
+
+  QValidation.prototype.requireNumericFields = function() {
+    if (isInt(this.json.year) !== true) {
+      throw 'Поле "год", должно состоять из только из цифр';
+    }
+    if (isInt(this.json.countPages) !== true) {
+      throw 'Поле "Количество страниц", должно состоять из только из цифр';
+    }
+    return null;
   };
 
   return QValidation;

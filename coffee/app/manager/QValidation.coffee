@@ -6,6 +6,7 @@ class QValidation
     unless @json?
       throw 'Необходимо заполнить форму'
     @existsFields()
+    @requireNumericFields()
     return @
 
 
@@ -17,4 +18,13 @@ class QValidation
     unless @json.year? and @json.year.length > 0
       throw 'Необходимо указать год'
     unless @json.countPages? and @json.countPages.length > 0
-      throw 'Необходимо количество страниц'
+      throw 'Необходимо указать количество страниц'
+    return null
+
+
+  requireNumericFields:->
+    unless isInt(@json.year) is true
+      throw 'Поле "год", должно состоять из только из цифр'
+    unless isInt(@json.countPages) is true
+      throw 'Поле "Количество страниц", должно состоять из только из цифр'
+    return null

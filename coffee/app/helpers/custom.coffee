@@ -11,3 +11,6 @@ do ->
     result = pr + @seed(parseInt(new Date().getTime() / 1000, 10), 8) + @seed(Math.floor(Math.random() * 0x75bcd15) + 1, 5)
     result += (Math.random() * 10).toFixed(8).toString()  if en
     result
+
+  @isInt = (str) ->
+    return not /\D/.test(str)
