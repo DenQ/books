@@ -205,7 +205,7 @@ QManager = (function() {
       throw false;
     }
     if (row = this.Read(__id)) {
-      if (this.Validation(json) === true) {
+      if (this.Validation(json, 'update') === true) {
         this.storage.set(__id, json);
         return true;
       }
@@ -225,10 +225,10 @@ QManager = (function() {
     return false;
   };
 
-  QManager.prototype.Validation = function(json) {
+  QManager.prototype.Validation = function(json, scenario) {
     var e;
     try {
-      new QValidation(json);
+      new QValidation(json, scenario);
       return true;
     } catch (_error) {
       e = _error;
@@ -239,6 +239,23 @@ QManager = (function() {
 
   QManager.prototype.Count = function() {
     return this.relation.getCount();
+  };
+
+  QManager.prototype.Search = function(key, val) {
+    var item, row, _i, _len, _ref;
+    if (!(this.Count() > 0)) {
+      return null;
+    }
+    _ref = this.relation.getRelation();
+    for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+      item = _ref[_i];
+      if (row = this.Read(item)) {
+        if (row[key] === val) {
+          return item;
+        }
+      }
+    }
+    return null;
   };
 
   return QManager;
@@ -314,13 +331,19 @@ QRelation = (function() {
 QValidation = (function() {
   QValidation.prototype.json = null;
 
-  function QValidation(_at_json) {
+  QValidation.prototype.scenario = null;
+
+  function QValidation(_at_json, _at_scenario) {
     this.json = _at_json;
+    this.scenario = _at_scenario != null ? _at_scenario : 'create';
     if (this.json == null) {
       throw 'Необходимо заполнить форму';
     }
     this.existsFields();
     this.requireNumericFields();
+    if (this.scenario === 'create') {
+      this.uniqueFields();
+    }
     return this;
   }
 
@@ -346,6 +369,13 @@ QValidation = (function() {
     }
     if (isInt(this.json.countPages) !== true) {
       throw 'Поле "Количество страниц", должно состоять только из цифр';
+    }
+    return null;
+  };
+
+  QValidation.prototype.uniqueFields = function() {
+    if (QManager.prototype.GetInstance().Search('title', this.json.title) !== null) {
+      throw 'Книга с таким именем уже существует';
     }
     return null;
   };

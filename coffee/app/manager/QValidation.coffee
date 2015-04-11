@@ -1,12 +1,15 @@
 class QValidation
 
   json:null
+  scenario: null
 
-  constructor:(@json)->
+  constructor:(@json, @scenario = 'create')->
     unless @json?
       throw 'Необходимо заполнить форму'
     @existsFields()
     @requireNumericFields()
+    if @scenario is 'create'
+      @uniqueFields()
     return @
 
 
@@ -27,4 +30,10 @@ class QValidation
       throw 'Поле "год", должно состоять только из цифр'
     unless isInt(@json.countPages) is true
       throw 'Поле "Количество страниц", должно состоять только из цифр'
+    return null
+
+
+  uniqueFields:->
+    unless QManager::GetInstance().Search('title', @json.title) is null
+      throw 'Книга с таким именем уже существует'
     return null

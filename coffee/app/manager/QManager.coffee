@@ -43,7 +43,7 @@ class QManager
     if @relation.findById(__id) is false
       throw false
     if row = @Read __id
-      if @Validation(json) is true
+      if @Validation(json, 'update') is true
         @storage.set __id, json
         return true
     return false
@@ -58,9 +58,9 @@ class QManager
     return false
 
 
-  Validation:(json)->
+  Validation:(json, scenario)->
     try
-      new QValidation json
+      new QValidation json, scenario
       return true
     catch e
       alert e
@@ -69,3 +69,13 @@ class QManager
 
   Count:->
     return @relation.getCount()
+
+
+  Search:(key, val)->
+    unless @Count() > 0
+      return null
+    for item in @relation.getRelation()
+      if row = @Read item
+        if row[key] is val
+          return item
+    return null
