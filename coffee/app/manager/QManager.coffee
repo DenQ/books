@@ -65,3 +65,7 @@ class QManager
     catch e
       alert e
       return false
+
+
+  Count:->
+    return @relation.getCount()

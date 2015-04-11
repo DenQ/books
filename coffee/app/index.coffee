@@ -4,7 +4,6 @@ $ ->
   QManager::SetStorage qls
 
   QList::Fill()
-
 #  __id = 'book_5527d2a35505a'
 
 #  bid = uniqid()
@@ -45,7 +44,8 @@ $ ->
     $tr = T.parents('tr:first')
     __id = $tr.attr 'bid'
     if QManager::GetInstance().Delete(__id) is true
-      $tr.remove()
+#      $tr.remove()
+      QList::Reload()
       if bid = $('.btn-update').attr('bid')
         FormHelper::Reset() if bid is __id
     return null

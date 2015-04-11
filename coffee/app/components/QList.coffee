@@ -6,6 +6,7 @@ class QList
   Fill:->
     Relations = QManager::GetInstance().GetRelation().getRelation()
     @PushItem(__id) for __id in Relations.reverse()
+    @CheckEmpty()
     return null
 
 
@@ -27,4 +28,13 @@ class QList
     @Empty()
     @Fill()
     FormHelper::Reset()
+    @CheckEmpty()
+    return null
+
+
+  CheckEmpty:->
+    if QManager::GetInstance().Count() is 0
+      $('.empty-list').show()
+    else
+      $('.empty-list').hide()
     return null

@@ -223,6 +223,10 @@ QManager = (function() {
     }
   };
 
+  QManager.prototype.Count = function() {
+    return this.relation.getCount();
+  };
+
   return QManager;
 
 })();
@@ -283,6 +287,10 @@ QRelation = (function() {
       return true;
     }
     return false;
+  };
+
+  QRelation.prototype.getCount = function() {
+    return this.getRelation().length;
   };
 
   return QRelation;
@@ -347,6 +355,7 @@ QList = (function() {
       __id = _ref[_i];
       this.PushItem(__id);
     }
+    this.CheckEmpty();
     return null;
   };
 
@@ -370,6 +379,16 @@ QList = (function() {
     this.Empty();
     this.Fill();
     FormHelper.prototype.Reset();
+    this.CheckEmpty();
+    return null;
+  };
+
+  QList.prototype.CheckEmpty = function() {
+    if (QManager.prototype.GetInstance().Count() === 0) {
+      $('.empty-list').show();
+    } else {
+      $('.empty-list').hide();
+    }
     return null;
   };
 
@@ -403,7 +422,7 @@ $(function() {
     $tr = T.parents('tr:first');
     __id = $tr.attr('bid');
     if (QManager.prototype.GetInstance().Delete(__id) === true) {
-      $tr.remove();
+      QList.prototype.Reload();
       if (bid = $('.btn-update').attr('bid')) {
         if (bid === __id) {
           FormHelper.prototype.Reset();

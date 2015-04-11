@@ -35,3 +35,7 @@ class QRelation
       @storage.set @KEY, __relation
       return true
     return false
+
+
+  getCount:->
+    return @getRelation().length
