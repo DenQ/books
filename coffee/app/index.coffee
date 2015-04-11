@@ -27,7 +27,7 @@ $ ->
 #  console.log QManager::GetInstance().Delete __id
 
 
-  $('.btn-edit').click (e) ->
+  $('.list-book').on('click', '.btn-edit', (e) ->
     T = $(e.currentTarget)
     $tr = T.parents('tr:first')
     __id = $tr.attr 'bid'
@@ -39,24 +39,25 @@ $ ->
     $('.btn-update').show()
     $('.btn-create').hide()
     $('.btn-update').attr 'bid', __id
-    return
+    return null
+  )
 
-
-  $('.btn-remove').click (e) ->
+  $('.list-book').on('click', '.btn-remove', (e) ->
     T = $(e.currentTarget)
     $tr = T.parents('tr:first')
     __id = $tr.attr 'bid'
     QManager::GetInstance().Delete __id
     $tr.remove()
-    return
-
+    return null
+  )
+  #  system btn
   $('.btn-reset').click (e) ->
     $('.btn-update').hide()
     $('.btn-create').show()
     $('.btn-update').removeAttr 'bid'
     null
 
-
+  #  system btn
   $('.btn-create').click (e) ->
     T = $(e.currentTarget)
     __id = T.attr 'bid'
@@ -68,7 +69,7 @@ $ ->
     FormHelper::Reset()
     null
 
-
+  #  system btn
   $('.btn-update').click (e) ->
     T = $(e.currentTarget)
     __id = T.attr 'bid'

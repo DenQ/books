@@ -282,7 +282,7 @@ $(function() {
   QManager.prototype.SetStorage(qls);
   qList = new QList();
   qList.fill();
-  $('.btn-edit').click(function(e) {
+  $('.list-book').on('click', '.btn-edit', function(e) {
     var $tr, T, row, __id;
     T = $(e.currentTarget);
     $tr = T.parents('tr:first');
@@ -295,14 +295,16 @@ $(function() {
     $('.btn-update').show();
     $('.btn-create').hide();
     $('.btn-update').attr('bid', __id);
+    return null;
   });
-  $('.btn-remove').click(function(e) {
+  $('.list-book').on('click', '.btn-remove', function(e) {
     var $tr, T, __id;
     T = $(e.currentTarget);
     $tr = T.parents('tr:first');
     __id = $tr.attr('bid');
     QManager.prototype.GetInstance().Delete(__id);
     $tr.remove();
+    return null;
   });
   $('.btn-reset').click(function(e) {
     $('.btn-update').hide();
