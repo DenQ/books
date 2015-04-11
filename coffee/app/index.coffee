@@ -48,6 +48,7 @@ $ ->
     $tr.remove()
     return null
   )
+
   #  system btn
   $('.btn-reset').click (e) ->
     $('.btn-update').hide()
@@ -57,18 +58,17 @@ $ ->
 
   #  system btn
   $('.btn-create').click (e) ->
-    T = $(e.currentTarget)
-    __id = T.attr 'bid'
-    QManager::GetInstance().Create FormHelper::GetJson()
-    QList::Reload()
+    if QManager::GetInstance().Create(FormHelper::GetJson()) isnt false
+      QList::Reload()
+      console.log 'reset'
     null
 
   #  system btn
   $('.btn-update').click (e) ->
     T = $(e.currentTarget)
     __id = T.attr 'bid'
-    QManager::GetInstance().Update __id, FormHelper::GetJson()
-    QList::Reload()
+    if QManager::GetInstance().Update(__id, FormHelper::GetJson()) is true
+      QList::Reload()
     null
 
 

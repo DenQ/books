@@ -26,9 +26,10 @@ class QManager
 
 
   Create:(json)->
-    if __id = @relation.newRow()
-      @storage.set __id, json
-      return __id
+    if @Validation(json) is true
+      if __id = @relation.newRow()
+        @storage.set __id, json
+        return __id
     return false
 
 
@@ -42,8 +43,9 @@ class QManager
     if @relation.findById(__id) is false
       throw false
     if row = @Read __id
-      @storage.set __id, json
-      return true
+      if @Validation(json) is true
+        @storage.set __id, json
+        return true
     return false
 
 
@@ -53,3 +55,12 @@ class QManager
         @storage.delete __id
       return true
     return false
+
+
+  Validation:(json)->
+    try
+      new QValidation json
+      return true
+    catch e
+      alert e
+      return false
