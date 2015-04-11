@@ -37,14 +37,15 @@ $ ->
   )
 
   $('.list-book').on('click', '.btn-remove', (e) ->
-    T = $(e.currentTarget)
-    $tr = T.parents('tr:first')
-    __id = $tr.attr 'bid'
-    if QManager::GetInstance().Delete(__id) is true
-#      $tr.remove()
-      QList::Reload()
-      if bid = $('.btn-update').attr('bid')
-        FormHelper::Reset() if bid is __id
+    if confirm('Точно удалить?') is true
+      T = $(e.currentTarget)
+      $tr = T.parents('tr:first')
+      __id = $tr.attr 'bid'
+      if QManager::GetInstance().Delete(__id) is true
+  #      $tr.remove()
+        QList::Reload()
+        if bid = $('.btn-update').attr('bid')
+          FormHelper::Reset() if bid is __id
     return null
   )
 

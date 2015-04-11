@@ -459,14 +459,16 @@ $(function() {
   });
   $('.list-book').on('click', '.btn-remove', function(e) {
     var $tr, T, bid, __id;
-    T = $(e.currentTarget);
-    $tr = T.parents('tr:first');
-    __id = $tr.attr('bid');
-    if (QManager.prototype.GetInstance().Delete(__id) === true) {
-      QList.prototype.Reload();
-      if (bid = $('.btn-update').attr('bid')) {
-        if (bid === __id) {
-          FormHelper.prototype.Reset();
+    if (confirm('Точно удалить?') === true) {
+      T = $(e.currentTarget);
+      $tr = T.parents('tr:first');
+      __id = $tr.attr('bid');
+      if (QManager.prototype.GetInstance().Delete(__id) === true) {
+        QList.prototype.Reload();
+        if (bid = $('.btn-update').attr('bid')) {
+          if (bid === __id) {
+            FormHelper.prototype.Reset();
+          }
         }
       }
     }

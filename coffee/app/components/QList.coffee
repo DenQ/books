@@ -3,6 +3,7 @@ class QList
   GetTemplate:->
     return $('div#templates .table-tr tr').clone()
 
+
   Fill:->
     Relations = QManager::GetInstance().GetRelation().getRelation()
     @PushItem(__id) for __id in Relations.reverse()
@@ -24,10 +25,10 @@ class QList
     $('.list-book tbody tr.item').remove()
     return null
 
+
   Reload:->
     @Empty()
     @Fill()
-#    FormHelper::Reset()
     @CheckEmpty()
     return null
 
