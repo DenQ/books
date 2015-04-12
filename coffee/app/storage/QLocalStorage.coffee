@@ -14,7 +14,11 @@ class QLocalStorage extends IStorage
   get:(key)-> JSON.parse @storage.getItem key
 
   set:(key, val)->
-    @storage.setItem key, JSON.stringify val
+    try
+      @storage.setItem key, JSON.stringify val
+    catch e
+#      QUOTA_EXCEEDED_ERR
+      alert "Превышен лимит использования памяти localStorage"
     null
 
   delete:(key)->

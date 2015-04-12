@@ -135,7 +135,13 @@ QLocalStorage = (function(_super) {
   };
 
   QLocalStorage.prototype.set = function(key, val) {
-    this.storage.setItem(key, JSON.stringify(val));
+    var e;
+    try {
+      this.storage.setItem(key, JSON.stringify(val));
+    } catch (_error) {
+      e = _error;
+      alert("Превышен лимит использования памяти localStorage");
+    }
     return null;
   };
 
