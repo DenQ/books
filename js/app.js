@@ -61,6 +61,7 @@ FormHelper = (function() {
 
   FormHelper.prototype.Reset = function() {
     $('.btn-reset').trigger('click');
+    this.PrintInfo();
     return null;
   };
 
@@ -71,6 +72,14 @@ FormHelper = (function() {
       this.SetValue(key, val);
     }
     return null;
+  };
+
+  FormHelper.prototype.PrintInfo = function() {
+    var countPages, memorySize;
+    memorySize = ListHelper.prototype.Size();
+    countPages = QManager.prototype.GetInstance().Count();
+    $('.total-memory').text(memorySize);
+    return $('.total-books').text(countPages);
   };
 
   return FormHelper;
@@ -459,6 +468,7 @@ $(function() {
   qls = new QLocalStorage();
   QManager.prototype.SetStorage(qls);
   QList.prototype.Fill();
+  FormHelper.prototype.PrintInfo();
   $('.list-book').on('click', '.btn-edit', function(e) {
     var $tr, T, json, __id;
     T = $(e.currentTarget);
@@ -469,6 +479,7 @@ $(function() {
       $('.btn-update').show();
       $('.btn-create').hide();
       $('.btn-update').attr('bid', __id);
+      FormHelper.prototype.PrintInfo();
     }
     return null;
   });
@@ -485,6 +496,7 @@ $(function() {
             FormHelper.prototype.Reset();
           }
         }
+        FormHelper.prototype.PrintInfo();
       }
     }
     return null;
@@ -536,6 +548,15 @@ $(function() {
 
 ListHelper = (function() {
   function ListHelper() {}
+
+  ListHelper.prototype.Size = function() {
+    var size, x;
+    size = 0;
+    for (x in localStorage) {
+      size = +(localStorage[x].length * 2 / 1024 / 1024);
+    }
+    return size.toFixed(5);
+  };
 
   return ListHelper;
 

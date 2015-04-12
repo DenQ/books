@@ -4,6 +4,7 @@ $ ->
   QManager::SetStorage qls
 
   QList::Fill()
+  FormHelper::PrintInfo()
 
   $('.list-book').on('click', '.btn-edit', (e) ->
     T = $(e.currentTarget)
@@ -14,6 +15,7 @@ $ ->
       $('.btn-update').show()
       $('.btn-create').hide()
       $('.btn-update').attr 'bid', __id
+      FormHelper::PrintInfo()
     return null
   )
 
@@ -27,6 +29,7 @@ $ ->
         QList::Reload()
         if bid = $('.btn-update').attr('bid')
           FormHelper::Reset() if bid is __id
+        FormHelper::PrintInfo()
     return null
   )
 

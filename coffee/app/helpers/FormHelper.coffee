@@ -20,6 +20,7 @@ class FormHelper
 
   Reset:->
     $('.btn-reset').trigger 'click'
+    @PrintInfo()
     return null
 
 
@@ -27,3 +28,10 @@ class FormHelper
     for key, val of json
       @SetValue key, val
     return null
+
+
+  PrintInfo:->
+    memorySize = ListHelper::Size()
+    countPages = QManager::GetInstance().Count()
+    $('.total-memory').text memorySize
+    $('.total-books').text countPages

@@ -18,7 +18,10 @@ table{
 td{
     word-wrap: break-word;
 }
-
+.info{
+    float: right;
+    padding-right: 20px;
+}
 /*@media all and (max-device-width: 600px) {*/
     /*body{*/
         /*color: red;*/
