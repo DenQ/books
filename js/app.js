@@ -449,7 +449,7 @@ QList = (function() {
 })();
 
 $(function() {
-  var qls;
+  var qls, resize;
   qls = new QLocalStorage();
   QManager.prototype.SetStorage(qls);
   QList.prototype.Fill();
@@ -505,7 +505,7 @@ $(function() {
     }
     return null;
   });
-  $(window).resize(function(e) {
+  resize = function(e) {
     var MIN_WIDTH;
     MIN_WIDTH = 400;
     if ($('aside').position().left === 0) {
@@ -517,20 +517,13 @@ $(function() {
       $('section').css('width', '50%');
     }
     return null;
+  };
+  $(window).resize(function(e) {
+    resize(e);
+    return null;
   });
   $(window).on("orientationchange", function(e) {
-    var MIN_WIDTH;
-    console.log(e);
-    MIN_WIDTH = 400;
-    console.log($('aside').position());
-    if ($('aside').position().left === 0) {
-      $('aside').css('width', '100%');
-      $('section').css('width', '100%');
-    }
-    if ($(document).width() >= MIN_WIDTH * 2) {
-      $('aside').css('width', '50%');
-      $('section').css('width', '50%');
-    }
+    resize(e);
     return null;
   });
 });
