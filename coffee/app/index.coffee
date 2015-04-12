@@ -52,5 +52,16 @@ $ ->
       QList::Reload()
     null
 
+    
+  $(window).resize (e) ->
+    MIN_WIDTH = 400
+    if $('aside').position().left is 0
+      $('aside').css 'width', '100%'
+      $('section').css 'width', '100%'
+    if $(document).width() >= MIN_WIDTH * 2
+      $('aside').css 'width', '50%'
+      $('section').css 'width', '50%'
+    return null
+
 
   return

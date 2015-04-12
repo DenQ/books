@@ -1,10 +1,32 @@
 section{
     width: 50%;
+    min-width: 400px;
     padding: 10px;
     float: left;
+
 }
 aside{
     width: 50%;
+    min-width: 400px;
     padding: 10px;
-    float: right;
+    float:left;
 }
+
+table{
+    table-layout: fixed;
+}
+td{
+    word-wrap: break-word;
+}
+
+/*@media all and (max-device-width: 600px) {*/
+    /*body{*/
+        /*color: red;*/
+    /*}*/
+    /*section{*/
+        /*width: 100%;*/
+    /*}*/
+    /*aside{*/
+        /*width: 100%;*/
+    /*}*/
+/*}*/
