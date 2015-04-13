@@ -130,7 +130,7 @@ QLocalStorage = (function(_super) {
       this.storage = localStorage;
     } catch (_error) {
       error = _error;
-      console.log(error);
+      NotifyHelper.prototype.Error("К сожалению ваш браузер не поддерживает localStorage");
     }
     return null;
   };
