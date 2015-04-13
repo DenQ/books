@@ -18,7 +18,7 @@ class QLocalStorage extends IStorage
       @storage.setItem key, JSON.stringify val
     catch e
 #      QUOTA_EXCEEDED_ERR
-      alert "Превышен лимит использования памяти localStorage"
+      NotifyHelper::Danger "Превышен лимит использования памяти localStorage"
     null
 
   delete:(key)->

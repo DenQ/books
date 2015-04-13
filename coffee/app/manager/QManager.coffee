@@ -29,6 +29,7 @@ class QManager
     if @Validation(json) is true
       if __id = @relation.newRow()
         @storage.set __id, json
+        NotifyHelper::Info "Добавлена новая книга"
         return __id
     return false
 
@@ -45,6 +46,7 @@ class QManager
     if row = @Read __id
       if @Validation(json, 'update') is true
         @storage.set __id, json
+        NotifyHelper::Info "Обновлено"
         return true
     return false
 
@@ -53,6 +55,7 @@ class QManager
     if @relation.findById(__id) is true and row = @Read(__id)
       if @relation.remove(__id) is true
         @storage.delete __id
+        NotifyHelper::Info "Книга была удалена"
         return true
       return false
     return false
@@ -63,7 +66,7 @@ class QManager
       new QValidation json, scenario
       return true
     catch e
-      alert e
+      NotifyHelper::Danger e
       return false
 
 
