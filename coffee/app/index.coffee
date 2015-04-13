@@ -63,7 +63,19 @@ $ ->
     if $(document).width() >= MIN_WIDTH * 2
       $('aside').css 'width', '50%'
       $('section').css 'width', '50%'
+    buttons()
     return null
+
+
+  buttons =() ->
+    MIN_WIDTH = 600
+    if $(document).width() <= MIN_WIDTH * 1.5
+      $('form button').addClass 'btn-xs'
+    else
+      $('form button').removeClass 'btn-xs'
+    null
+    
+  buttons()
 
   $(window).resize (e) ->
     resize e

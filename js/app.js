@@ -464,7 +464,7 @@ QList = (function() {
 })();
 
 $(function() {
-  var qls, resize;
+  var buttons, qls, resize;
   qls = new QLocalStorage();
   QManager.prototype.SetStorage(qls);
   QList.prototype.Fill();
@@ -534,8 +534,20 @@ $(function() {
       $('aside').css('width', '50%');
       $('section').css('width', '50%');
     }
+    buttons();
     return null;
   };
+  buttons = function() {
+    var MIN_WIDTH;
+    MIN_WIDTH = 600;
+    if ($(document).width() <= MIN_WIDTH * 1.5) {
+      $('form button').addClass('btn-xs');
+    } else {
+      $('form button').removeClass('btn-xs');
+    }
+    return null;
+  };
+  buttons();
   $(window).resize(function(e) {
     resize(e);
     return null;

@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script type="text/javascript" src="lib/jquery/2.1.3/jquery.min.js"></script>
     <script src="//code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+    <!--<script src="lib/jquery/mobile/jquery.mobile-1.4.5.min.js"></script>-->
 
     <link rel="stylesheet" href="lib/bootstrap/3.3.2/bootstrap.min.css">
     <link rel="stylesheet" href="lib/bootstrap/3.3.2/bootstrap-theme.min.css">
@@ -23,30 +24,32 @@
 <nav></nav>
 <section>
     <form id="book-editor">
-        <div class="form-group">
-            <label for="author">Автор</label>
-            <input type="text" class="form-control" id="author" placeholder="Автор">
-        </div>
-        <div class="form-group">
-            <label for="year">Год издания</label>
-            <input type="text" class="form-control" id="year" placeholder="Год издания">
-        </div>
-        <div class="form-group">
-            <label for="title">Название книги</label>
-            <input type="text" class="form-control" id="title" placeholder="Название книги">
-        </div>
-        <div class="form-group">
-            <label for="countPages">Количество страниц</label>
-            <input type="text" class="form-control" id="countPages" placeholder="Количество страниц">
-        </div>
-        <button type="button" class="btn btn-default btn-create">Добавить</button>
-        <button type="button" class="btn btn-default btn-update" style="display:none; ">Редактировать</button>
-        <button type="reset" class="btn btn-default btn-reset">Очистить</button>
-        <span class="info">
-            Всего книг: <b class="total-books">100</b>
-            &nbsp;|&nbsp;
-            Расход памяти: <b class="total-memory">100</b> МБ
-        </span>
+        <fieldset>
+            <div class="form-group">
+                <label for="author">Автор</label>
+                <input type="text" class="form-control" id="author" placeholder="Автор">
+            </div>
+            <div class="form-group">
+                <label for="year">Год издания</label>
+                <input type="text" class="form-control" id="year" placeholder="Год издания">
+            </div>
+            <div class="form-group">
+                <label for="title">Название книги</label>
+                <input type="text" class="form-control" id="title" placeholder="Название книги">
+            </div>
+            <div class="form-group">
+                <label for="countPages">Количество страниц</label>
+                <input type="text" class="form-control" id="countPages" placeholder="Количество страниц">
+            </div>
+            <button type="button" class="btn btn-default btn-create">Добавить</button>
+            <button type="button" class="btn btn-default btn-update" style="display:none; ">Редактировать</button>
+            <button type="reset" class="btn btn-default btn-reset">Очистить</button>
+            <span class="info">
+                <span title="Суммарное количество книг">Книг: <b class="total-books">100</b></span>
+                &nbsp;|&nbsp;
+                <span title="Использованно памяти">Память: <b class="total-memory">100</b> МБ</span>
+            </span>
+        </fieldset>
     </form>
 </section>
 
