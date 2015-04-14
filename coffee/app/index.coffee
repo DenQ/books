@@ -85,4 +85,6 @@ $ ->
     resize e
     return null
 
+  $('.ui-loader-default').hide()
+
   return
