@@ -86,6 +86,59 @@ FormHelper = (function() {
 
 })();
 
+ListHelper = (function() {
+  function ListHelper() {}
+
+  ListHelper.prototype.Size = function() {
+    var size, x;
+    size = 0;
+    for (x in localStorage) {
+      size = +(localStorage[x].length * 2 / 1024 / 1024);
+    }
+    return size.toFixed(5);
+  };
+
+  return ListHelper;
+
+})();
+
+NotifyHelper = (function() {
+  function NotifyHelper() {}
+
+  NotifyHelper.prototype.Default = function(message) {
+    $.notify(message);
+    return null;
+  };
+
+  NotifyHelper.prototype.Success = function(message) {
+    $.notify(message, 'success');
+    return null;
+  };
+
+  NotifyHelper.prototype.Info = function(message) {
+    $.notify(message, 'info');
+    return null;
+  };
+
+  NotifyHelper.prototype.Danger = function(message) {
+    $.notify(message, 'danger');
+    return null;
+  };
+
+  NotifyHelper.prototype.Warning = function(message) {
+    $.notify(message, 'warning');
+    return null;
+  };
+
+  NotifyHelper.prototype.Error = function(message) {
+    $.notify(message, 'warning');
+    return null;
+  };
+
+  return NotifyHelper;
+
+})();
+
 IStorage = (function() {
   function IStorage() {
     this.initStorage();
@@ -560,56 +613,3 @@ $(function() {
     return null;
   });
 });
-
-ListHelper = (function() {
-  function ListHelper() {}
-
-  ListHelper.prototype.Size = function() {
-    var size, x;
-    size = 0;
-    for (x in localStorage) {
-      size = +(localStorage[x].length * 2 / 1024 / 1024);
-    }
-    return size.toFixed(5);
-  };
-
-  return ListHelper;
-
-})();
-
-NotifyHelper = (function() {
-  function NotifyHelper() {}
-
-  NotifyHelper.prototype.Default = function(message) {
-    $.notify(message);
-    return null;
-  };
-
-  NotifyHelper.prototype.Success = function(message) {
-    $.notify(message, 'success');
-    return null;
-  };
-
-  NotifyHelper.prototype.Info = function(message) {
-    $.notify(message, 'info');
-    return null;
-  };
-
-  NotifyHelper.prototype.Danger = function(message) {
-    $.notify(message, 'danger');
-    return null;
-  };
-
-  NotifyHelper.prototype.Warning = function(message) {
-    $.notify(message, 'warning');
-    return null;
-  };
-
-  NotifyHelper.prototype.Error = function(message) {
-    $.notify(message, 'warning');
-    return null;
-  };
-
-  return NotifyHelper;
-
-})();
