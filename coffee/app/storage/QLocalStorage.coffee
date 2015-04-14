@@ -7,7 +7,6 @@ class QLocalStorage extends IStorage
       @storage = localStorage
     catch error
       NotifyHelper::Error "К сожалению ваш браузер не поддерживает localStorage"
-#      console.log error
     null
 
   getStorage:-> @storage
