@@ -1,0 +1,24 @@
+section{
+    width: 50%;
+    min-width: 400px;
+    padding: 20px;
+    float: left;
+
+}
+aside{
+    width: 50%;
+    min-width: 400px;
+    padding: 20px;
+    float:left;
+}
+
+table{
+    table-layout: fixed;
+}
+td{
+    word-wrap: break-word;
+}
+.info{
+    float: right;
+    padding-right: 20px;
+}
